@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ "develop" ]
 
+env:
+  CLUSTER_NAME: https://tcc-01.th1.proen.cloud/api/ 
+  
 jobs:
   build-docker-image:
 

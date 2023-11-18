@@ -34,3 +34,14 @@ kubectl create secret generic pingsecret --from-literal=secretmessage=mysecret -
 kubectl run --rm -it --tty pingkungcurl1 -n group-1 --image=curlimages/curl --restart=Never -- pingw91010-svc.group-1/greeting
 kubectl run --rm -it --tty pingkungcurl1 -n group-1 --image=curlimages/curl --restart=Never -- pingw91010-svc.group-1/pmessage
 kubectl run --rm -it --tty pingkungcurl1 -n group-1 --image=curlimages/curl --restart=Never -- pingw91010-svc.group-1/psecretmessage
+
+
+
+//https://stackoverflow.com/questions/76354596/using-yq-to-replace-name-of-docker-image
+yq '.spec.template.spec.containers.[0].image = "STRING"' pingw91010.yaml
+
+#create new file
+yq '.spec.template.spec.containers.[0].image = "STRING"' pingw91010.yaml > yping.yaml
+
+Update a yaml file, in place
+yq -i '.spec.template.spec.containers.[0].image = "STRING"' pingw91010.yaml

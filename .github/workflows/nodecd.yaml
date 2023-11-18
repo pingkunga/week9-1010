@@ -5,11 +5,16 @@ name: Node.js CD
 #    branches:
 #        only:
 #            - develop
-on:
-    push:
-      branches: [ "develop" ]
-    pull_request:
-      branches: [ "develop" ]
+#on:
+#    push:
+#      branches: [ "develop" ]
+#    pull_request:
+#      branches: [ "develop" ]
+on: 
+    workflow_run:
+      workflows: ["Node.js CI"]
+      types:
+      - completed
 
 env:
   CLUSTER_NAME: https://tcc-01.th1.proen.cloud/api/ 
@@ -25,6 +30,22 @@ jobs:
         kubectl config set-context tcc-01 --user=tcc-01-user
         kubectl config use-context tcc-01
      - uses: actions/checkout@v3
+     #https://mikefarah.gitbook.io/yq/usage/github-action
+     - uses: benjlevesque/short-sha@v2.2
+       id: short-sha
+       with:
+         length: 6
+     - run: echo $SHA
+       env:
+         SHA: ${{ steps.short-sha.outputs.sha }}
+     - run: echo $SHA
+       env:
+        SHA: ${{ env.SHA }}
+     - name: Get an entry with a variable that might contain dots or spaces
+       id: get_username
+       uses: mikefarah/yq@master
+       with:
+         cmd: yq -i '.spec.template.spec.containers.[0].image = "pingkunga/w91010:${{ env.SHA }}"' javascript/manifest/dev/pingw91010.yaml
      - name: 'Deploy Dev'
        run: |
         pwd 

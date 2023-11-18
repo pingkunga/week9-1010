@@ -18,7 +18,8 @@ jobs:
         working-directory: ./javascript # Here the path to the folder where package-lock.json is located.
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [14.x]
+    #    node-version: [14.x, 16.x]
     #    node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -49,4 +50,6 @@ jobs:
       with:
         context: ./javascript
         push: true
-        tags: pingkunga/w91010_${{ matrix.node-version }}:latest
+        #tags: pingkunga/w91010_${{ matrix.node-version }}:latest
+        #tags: pingkunga/w91010:latest
+        tags: pingkunga/w91010:${{ github.sha }}

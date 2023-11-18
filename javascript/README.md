@@ -31,7 +31,6 @@ kubectl create configmap pingconfig --from-literal=message=test -n group-1 --dry
 
 kubectl create secret generic pingsecret --from-literal=secretmessage=mysecret -n group-1 --dry-run=client -o yaml > pingsecret.yaml
 
-
+kubectl run --rm -it --tty pingkungcurl1 -n group-1 --image=curlimages/curl --restart=Never -- pingw91010-svc.group-1/greeting
 kubectl run --rm -it --tty pingkungcurl1 -n group-1 --image=curlimages/curl --restart=Never -- pingw91010-svc.group-1/pmessage
-
 kubectl run --rm -it --tty pingkungcurl1 -n group-1 --image=curlimages/curl --restart=Never -- pingw91010-svc.group-1/psecretmessage

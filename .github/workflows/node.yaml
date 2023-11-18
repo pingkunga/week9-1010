@@ -51,5 +51,5 @@ jobs:
         context: ./javascript
         push: true
         #tags: pingkunga/w91010_${{ matrix.node-version }}:latest
-        #tags: pingkunga/w91010:latest
-        tags: pingkunga/w91010:${{ github.sha }}
+        tags: pingkunga/w91010:latest
+        #tags: pingkunga/w91010:${{ github.sha }}

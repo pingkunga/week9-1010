@@ -29,5 +29,5 @@ jobs:
        run: |
         pwd 
         ls -la
-        #kubectl apply -f ./javascript/manifests/dev/pingw91010.yaml
+        kubectl apply -f .\javascript\manifest\dev\pingw91010.yaml
     

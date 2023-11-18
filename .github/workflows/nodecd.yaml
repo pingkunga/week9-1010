@@ -5,16 +5,16 @@ name: Node_CD
 #    branches:
 #        only:
 #            - develop
-#on:
-#    push:
-#      branches: [ "develop" ]
-#    pull_request:
-#      branches: [ "develop" ]
-on: 
-  workflow_run:
-    workflows: ["Node_CI"]
-    types: [completed]
+on:
+  push:
     branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+#on: 
+#  workflow_run:
+#    workflows: ["Node_CI"]
+#    types: [completed]
+#    branches: [ "develop" ]
 
 env:
   CLUSTER_NAME: https://tcc-01.th1.proen.cloud/api/ 

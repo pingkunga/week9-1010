@@ -11,10 +11,10 @@ name: Node.js CD
 #    pull_request:
 #      branches: [ "develop" ]
 on: 
-    workflow_run:
-      workflows: ["Node.js CI"]
-      types:
-      - completed
+  workflow_run:
+    workflows: ["Node.js CI"]
+    types: [completed]
+    branches: [ "develop" ]
 
 env:
   CLUSTER_NAME: https://tcc-01.th1.proen.cloud/api/ 

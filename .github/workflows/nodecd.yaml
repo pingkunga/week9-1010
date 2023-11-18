@@ -30,4 +30,5 @@ jobs:
         pwd 
         ls -la
         kubectl apply -f javascript/manifest/dev/pingw91010.yaml
+        kubectl apply -f javascript/manifest/dev/pingw91010-svc.yaml
     

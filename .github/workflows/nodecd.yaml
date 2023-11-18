@@ -24,6 +24,7 @@ jobs:
         kubectl config set-credentials tcc-01-user --token=${{ secrets.TCC01_TOKEN }}
         kubectl config set-context tcc-01 --user=tcc-01-user
         kubectl config use-context tcc-01
+     - uses: actions/checkout@v3
      - name: 'Deploy Dev'
        run: |
         kubectl apply -f ./manifests/dev/pingw91010.yaml

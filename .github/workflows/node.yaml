@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop1" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "develop1" ]
 
 jobs:
   build-docker-image:

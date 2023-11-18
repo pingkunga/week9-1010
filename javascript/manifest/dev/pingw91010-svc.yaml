@@ -1,7 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
+  labels:
+    app: pingw91010
   name:  pingw91010-svc
+  namespace: group-1
 spec:
   selector:
     app:  pingw91010
@@ -11,24 +14,3 @@ spec:
     port: 80
     protocol: TCP
     targetPort: 3000
-
-
-/*
-﻿apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: null
-  labels:
-    app: g1w7-1
-  name: g1w7-1-svc
-  namespace: group-1s
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 3000
-  selector:
-    app: g1w7-1
-status:
-  loadBalancer: {}
-*/

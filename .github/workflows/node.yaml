@@ -77,8 +77,20 @@ jobs:
           kubectl config set-credentials tcc-01-user --token=${{ secrets.TCC01_TOKEN }}
           kubectl config set-context tcc-01 --user=tcc-01-user
           kubectl config use-context tcc-01
-          
+
       - uses: actions/checkout@v3
+
+      # https://github.com/marketplace/actions/short-sha
+      - uses: benjlevesque/short-sha@v2.2
+        id: short-sha
+        with:
+          length: 6
+      - run: echo $SHA
+        env:
+          SHA: ${{ steps.short-sha.outputs.sha }}
+      - run: echo $SHA
+        env:
+          SHA: ${{ env.SHA }}
 
       - name: Replace Docker Image with Commit SHA
         id: Replace_Docker_Image

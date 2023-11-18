@@ -10,6 +10,8 @@ name: Node_CD
 #    branches: [ "develop" ]
 #  pull_request:
 #    branches: [ "develop" ]
+
+# workflow_run can run on default branch
 on: 
   workflow_run:
     workflows: ["Node_CI"]

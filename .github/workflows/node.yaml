@@ -65,4 +65,31 @@ jobs:
         #tags: pingkunga/w91010:latest
         #tags: pingkunga/w91010:${{ github.sha }}
         tags: pingkunga/w91010:${{ env.SHA }}
+
+  deployment:
+    needs: build-docker-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Authenticate to TCC01'
+        run: |
+          kubectl config set-cluster tcc-01 --server=${{ env.CLUSTER_NAME }} 
+          kubectl config set-context tcc-01 --cluster=tcc-01
+          kubectl config set-credentials tcc-01-user --token=${{ secrets.TCC01_TOKEN }}
+          kubectl config set-context tcc-01 --user=tcc-01-user
+          kubectl config use-context tcc-01
+
+      - name: Replace Docker Image with Commit SHA
+        id: Replace_Docker_Image
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.spec.template.spec.containers.[0].image = "pingkunga/w91010:${{ env.SHA }}"' javascript/manifest/dev/pingw91010.yaml
+      - name: 'Deploy Dev'
+        run: |
+          pwd 
+          ls -la
+          kubectl apply -f javascript/manifest/dev/pingconfig.yaml
+          kubectl apply -f javascript/manifest/dev/pingsecret.yaml
+          kubectl apply -f javascript/manifest/dev/pingw91010.yaml
+          kubectl apply -f javascript/manifest/dev/pingw91010-svc.yaml
+      
     

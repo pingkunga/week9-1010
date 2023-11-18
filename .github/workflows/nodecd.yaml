@@ -26,6 +26,5 @@ jobs:
         kubectl config use-context tcc-01
      - name: 'Deploy Dev'
        run: |
-        pwd
-        ls -la
+        kubectl apply -f ./manifests/dev/pingw91010.yaml
     

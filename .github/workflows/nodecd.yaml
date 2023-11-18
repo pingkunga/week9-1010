@@ -1,4 +1,4 @@
-name: Node.js CD
+name: Node_CD
 
 #on 
 #    tags: *
@@ -12,7 +12,7 @@ name: Node.js CD
 #      branches: [ "develop" ]
 on: 
   workflow_run:
-    workflows: ["Node.js CI"]
+    workflows: ["Node_CI"]
     types: [completed]
     branches: [ "develop" ]
 

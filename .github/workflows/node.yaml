@@ -18,7 +18,7 @@ jobs:
         working-directory: ./javascript # Here the path to the folder where package-lock.json is located.
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [14.x, 16.x]
     #    node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -26,12 +26,12 @@ jobs:
     - uses: actions/checkout@v3
     - name: pwd 0
       run: pwd
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: javascript/package.json
+    #- name: Use Node.js ${{ matrix.node-version }}
+    #  uses: actions/setup-node@v3
+    #  with:
+    #    node-version: ${{ matrix.node-version }}
+    #    cache: 'npm'
+    #    cache-dependency-path: javascript/package.json
     #- name: run npm commands
     #  run: | 
     #    pwd
@@ -49,4 +49,4 @@ jobs:
       with:
         context: ./javascript
         push: true
-        tags: pingkunga/w91010:latest
+        tags: pingkunga/w91010_${{ matrix.node-version }}:latest

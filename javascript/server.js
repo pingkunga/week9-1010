@@ -8,6 +8,18 @@ app.get("/greeting", (req, res) => {
   res.json({ message: `Hello, ${name}!` });
 });
 
+// Simple endpoint
+app.get("/pmessage", (req, res) => {
+  res.json({ message: `${process.env.message}` });
+});
+
+// Simple endpoint
+app.get("/psecretmessage", (req, res) => {
+  res.json({ message: `${process.env.secretmessage}` });
+});
+
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

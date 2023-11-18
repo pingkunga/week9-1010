@@ -11,7 +11,7 @@ on:
 
 env:
   CLUSTER_NAME: https://tcc-01.th1.proen.cloud/api/ 
-  
+
 jobs:
   build-docker-image:
 
@@ -108,5 +108,7 @@ jobs:
           kubectl apply -f javascript/manifest/dev/pingsecret.yaml
           kubectl apply -f javascript/manifest/dev/pingw91010.yaml
           kubectl apply -f javascript/manifest/dev/pingw91010-svc.yaml
+          kubectl apply -f javascript/manifest/dev/pingingress.yaml
+
       
     

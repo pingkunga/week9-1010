@@ -16,7 +16,7 @@ on:
   workflow_run:
     workflows: ["Node_CI"]
     types: [completed]
-    branches: [ "develop" ]
+    branches: [ "develop1" ]
 
 env:
   CLUSTER_NAME: https://tcc-01.th1.proen.cloud/api/ 

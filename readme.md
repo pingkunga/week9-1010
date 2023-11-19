@@ -1,3 +1,3 @@
 # Language
 
-* [JavaScript](./javascript/readme.md)
+* [JavaScript](./javascript/README.md)

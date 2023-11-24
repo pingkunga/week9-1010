@@ -49,10 +49,12 @@ jobs:
             tags: |
               type=semver,pattern={{version}}
         
-        - name : Get YQ Result
+        - name : Get Docker Meta Result
           run: |
             echo ${{ steps.docker_meta.outputs.tags }}
+            echo "-----------------"
             echo ${{ steps.docker_meta.outputs.labels }}
+            docker images
 
         - name: Build and push
           uses: docker/build-push-action@v5

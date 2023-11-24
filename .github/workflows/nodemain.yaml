@@ -22,7 +22,7 @@ jobs:
           id: Replace_Docker_Image
           uses: mikefarah/yq@master
           with:
-            cmd: imagenametag="$imagenametag" yq -i '.spec.template.spec.containers.[0].image = "pingkunga/w91010:${{ env.SHA }}"' javascript/manifest/dev/pingw91010.yaml
+            cmd: imagenametag="$imagenametag" yq -r '.spec.template.spec.containers.[0].image' javascript/manifest/dev/pingw91010.yaml
     
         #https://stackoverflow.com/a/76371212/20000255
         - name : Set ENV

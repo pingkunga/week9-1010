@@ -89,3 +89,8 @@ yq '.spec.template.spec.containers.[0].image = "STRING"' pingw91010.yaml > yping
 
 Update a yaml file, in place
 yq -i '.spec.template.spec.containers.[0].image = "STRING"' pingw91010.yaml
+
+Read Value
+yq -r '.spec.template.spec.containers.[0].image' javascript/manifest/dev/pingw91010.yaml
+
+https://mikefarah.gitbook.io/yq/operators/env-variable-operators#read-string-environment-variable

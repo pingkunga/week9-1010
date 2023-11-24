@@ -14,6 +14,9 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+              working-directory: ./javascript # Here the path to the folder where package-lock.json is located.
         steps:
         - name: Checkout
           uses: actions/checkout@v3
@@ -27,6 +30,7 @@ jobs:
         #https://stackoverflow.com/a/76371212/20000255
         - name : Set ENV
           run: |
+            echo "Test    $imagenametag"
             echo $imagenametag
             echo "IMAGE_NAME=$imagenametag" >> $GITHUB_ENV
 

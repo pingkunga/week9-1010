@@ -6,11 +6,12 @@
 name: NODE_MAIN
 
 on:
-    push:
-      branches: [ "main" ]
+    #push:
+    #  branches: [ "main" ]
     pull_request:
       branches: [ "main" ]
-
+env:
+    GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -65,10 +66,10 @@ jobs:
         #     tags: ${{ steps.docker_meta.outputs.tags }}
         #     labels: ${{ steps.docker_meta.outputs.labels }}
 
-        - id: semver-tag
-          uses: gandarez/semver-action@vlatest
-        - name: "Created tag"
-          run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
+        #- id: semver-tag
+        #  uses: gandarez/semver-action@vlatest
+        #- name: "Created tag"
+        #  run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
 
         - name : docker retag
           run: |
@@ -76,6 +77,7 @@ jobs:
               echo "-----------------"
               docker images
               echo "-----------------"
-              docker tag ${{ steps.get_image_name.outputs.result }} ${{ secrets.DOCKERHUB_USERNAME }}:${{ steps.semver-tag.outputs.semver_tag }}
+              docker tag ${{ steps.get_image_name.outputs.result }} ${{ secrets.DOCKERHUB_USERNAME }}:v${{env.GITHUB_PR_NUMBER}}
               docker images
               echo "-----------------"
+              docker push ${{ secrets.DOCKERHUB_USERNAME }}:v${{env.GITHUB_PR_NUMBER}}

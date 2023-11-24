@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         #- image: pingkunga/w91010
-        - image: pingkunga/w91010:2d36b9
+        - image: pingkunga/w91010:295c7d
           imagePullPolicy: Always
           name: w91010
           resources: {}

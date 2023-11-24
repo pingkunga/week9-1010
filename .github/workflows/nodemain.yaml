@@ -65,9 +65,17 @@ jobs:
         #     tags: ${{ steps.docker_meta.outputs.tags }}
         #     labels: ${{ steps.docker_meta.outputs.labels }}
 
+        - id: semver-tag
+          uses: gandarez/semver-action@vlatest
+        - name: "Created tag"
+          run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
+
         - name : docker retag
           run: |
               docker pull ${{ steps.get_image_name.outputs.result }}
               echo "-----------------"
+              docker images
+              echo "-----------------"
+              docker tag ${{ steps.get_image_name.outputs.result }} ${{ secrets.DOCKERHUB_USERNAME }}:${{ steps.semver-tag.outputs.semver_tag }}
               docker images
               echo "-----------------"

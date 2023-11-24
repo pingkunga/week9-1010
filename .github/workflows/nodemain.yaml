@@ -40,28 +40,34 @@ jobs:
         
         #https://github.com/marketplace/actions/docker-metadata-action
         #Extract Docker Image Metadata
-        - name: Extract Docker Image Metadata
-          id: docker_meta
-          uses: docker/metadata-action@v3
-          with:
-            images: ${{ steps.get_image_name.outputs.result }}
-            #all: true
-            tags: |
-              type=semver,pattern={{version}}
+        # - name: Extract Docker Image Metadata
+        #   id: docker_meta
+        #   uses: docker/metadata-action@v3
+        #   with:
+        #     images: ${{ steps.get_image_name.outputs.result }}
+        #     #all: true
+        #     tags: |
+        #       type=semver,pattern={{version}}
         
-        - name : Get Docker Meta Result
-          run: |
-            docker images
-            echo ${{ steps.docker_meta.outputs.tags }}
-            echo "-----------------"
-            echo ${{ steps.docker_meta.outputs.labels }}
-           
+        # - name : Get Docker Meta Result
+        #   run: |
+        #     docker images
+        #     echo ${{ steps.docker_meta.outputs.tags }}
+        #     echo "-----------------"
+        #     echo ${{ steps.docker_meta.outputs.labels }}
+        
+        # - name: Build and push
+        #   uses: docker/build-push-action@v5
+        #   with:
+        #     context: ./javascript
+        #     push: true
+        #     #push: ${{ github.event_name != 'pull_request' }}
+        #     tags: ${{ steps.docker_meta.outputs.tags }}
+        #     labels: ${{ steps.docker_meta.outputs.labels }}
 
-        - name: Build and push
-          uses: docker/build-push-action@v5
-          with:
-            context: ./javascript
-            push: true
-            #push: ${{ github.event_name != 'pull_request' }}
-            tags: ${{ steps.docker_meta.outputs.tags }}
-            labels: ${{ steps.docker_meta.outputs.labels }}
+        - name : docker retag
+          run: |
+              docker pull ${{ steps.get_image_name.outputs.result }}
+              echo "-----------------"
+              docker images
+              echo "-----------------"

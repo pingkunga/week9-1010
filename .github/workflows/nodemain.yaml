@@ -74,7 +74,7 @@ jobs:
         #docker login $REGISTRY_URL -u $USERNAME -p $PASSWORD
         - name : docker retag
           run: |
-              docker login ${{ vars.DOCKER_URL }} -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+              docker login ${{ vars.DOCKER_URL }} -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
               docker pull ${{ steps.get_image_name.outputs.result }}
               echo "-----------------"
               docker images

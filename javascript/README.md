@@ -67,6 +67,10 @@ kubectl run --rm -it --tty pingkungcurl1 -n group-1 --image=curlimages/curl --re
 
 ``` 
 yq -i '.spec.template.spec.containers.[0].image = "pingkunga/w91010:${{ env.SHA }}"' javascript/manifest/dev/pingw91010.yaml 
+
+
+yq -i '.spec.template.spec.containers.[0].image = "pingkunga/w91010:${$VERSION}"' javascript/manifest/dev/pingw91010.yaml 
+
 ```
 
 * ตรง .spec.template.spec.containers.[0].image เทียบกับ Deployment file

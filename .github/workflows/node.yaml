@@ -19,6 +19,8 @@ jobs:
     defaults:
       run:
         working-directory: ./javascript # Here the path to the folder where package-lock.json is located.
+    permissions:
+      contents: write
     strategy:
       matrix:
         node-version: [18.x]
@@ -81,7 +83,7 @@ jobs:
         git config user.email "github-actions@users.noreply.github.com"
         git add manifest/dev/*
         git commit -m "Update manifest"
-        git push origin develop
+        git push
 
   deployment:
     needs: build-docker-image

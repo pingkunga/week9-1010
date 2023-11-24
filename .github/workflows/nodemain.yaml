@@ -28,7 +28,7 @@ jobs:
             cmd: yq -r '.spec.template.spec.containers.[0].image' javascript/manifest/dev/pingw91010.yaml
     
         #https://stackoverflow.com/a/76371212/20000255
-        - name : Set ENV
+        - name : Get YQ Result
           run: |
             echo ${{ steps.get_image_name.outputs.result }}
 
@@ -48,11 +48,17 @@ jobs:
             #all: true
             tags: |
               type=semver,pattern={{version}}
+        
+        - name : Get YQ Result
+          run: |
+            echo ${{ steps.docker_meta.outputs.tags }}
+            echo ${{ steps.docker_meta.outputs.labels }}
 
         - name: Build and push
           uses: docker/build-push-action@v5
           with:
-            #context: .
+            context: ./javascript
+            push: true
             #push: ${{ github.event_name != 'pull_request' }}
-            tags: ${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
+            tags: ${{ steps.docker_meta.outputs.tags }}
+            labels: ${{ steps.docker_meta.outputs.labels }}

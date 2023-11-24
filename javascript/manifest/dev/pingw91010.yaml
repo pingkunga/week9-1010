@@ -19,14 +19,14 @@ spec:
         app: pingw91010
     spec:
       containers:
-      #- image: pingkunga/w91010
-      - image: pingkunga/w91010
-        imagePullPolicy: Always
-        name: w91010
-        resources: {}
-        envFrom: 
-        - configMapRef: 
-           name: pingconfig
-        - secretRef: 
-           name: pingsecret
+        #- image: pingkunga/w91010
+        - image: pingkunga/w91010:284581
+          imagePullPolicy: Always
+          name: w91010
+          resources: {}
+          envFrom:
+            - configMapRef:
+                name: pingconfig
+            - secretRef:
+                name: pingsecret
 status: {}

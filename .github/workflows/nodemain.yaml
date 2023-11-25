@@ -83,3 +83,16 @@ jobs:
               docker images
               echo "-----------------"
               docker push ${{ secrets.DOCKERHUB_USERNAME }}/w91010:v${{env.GITHUB_PR_NUMBER}}
+        #https://github.com/marketplace/actions/send-email
+        - name: Notify By Email
+          uses: dawidd6/action-send-mail@v3
+          with:
+            server_address: smtp.gmail.com
+            server_port: 465
+            username: ${{ secrets.EMAIL_USERNAME }}
+            password: ${{ secrets.EMAIL_PASSWORD }}
+            subject: 'Tag Success ${{ secrets.DOCKERHUB_USERNAME }}/w91010:v${{env.GITHUB_PR_NUMBER}}'
+            body: 'Tag Success ${{ secrets.DOCKERHUB_USERNAME }}/w91010:v${{env.GITHUB_PR_NUMBER}}'
+            from: ${{ secrets.EMAIL_USERNAME }}
+            to: ${{ secrets.EMAIL_TO_LIST }}
+            content_type: 'text/plain'

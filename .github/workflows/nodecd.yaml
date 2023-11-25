@@ -1,0 +1,58 @@
+name: Node_CD
+
+#on 
+#    tags: *
+#    branches:
+#        only:
+#            - develop
+#on:
+#  push:
+#    branches: [ "develop" ]
+#  pull_request:
+#    branches: [ "develop" ]
+
+# workflow_run can run on default branch
+on: 
+  workflow_run:
+    workflows: ["Node_CI"]
+    types: [completed]
+    branches: [ "develop1" ]
+
+env:
+  CLUSTER_NAME: https://tcc-01.th1.proen.cloud/api/ 
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+     - name: 'Authenticate to TCC01'
+       run: |
+        kubectl config set-cluster tcc-01 --server=${{ env.CLUSTER_NAME }} 
+        kubectl config set-context tcc-01 --cluster=tcc-01
+        kubectl config set-credentials tcc-01-user --token=${{ secrets.TCC01_TOKEN }}
+        kubectl config set-context tcc-01 --user=tcc-01-user
+        kubectl config use-context tcc-01
+     - uses: actions/checkout@v3
+     #https://mikefarah.gitbook.io/yq/usage/github-action
+     - uses: benjlevesque/short-sha@v2.2
+       id: short-sha
+       with:
+         length: 6
+     - run: echo $SHA
+       env:
+         SHA: ${{ steps.short-sha.outputs.sha }}
+     - run: echo $SHA
+       env:
+        SHA: ${{ env.SHA }}
+     - name: Get an entry with a variable that might contain dots or spaces
+       id: get_username
+       uses: mikefarah/yq@master
+       with:
+         cmd: yq -i '.spec.template.spec.containers.[0].image = "pingkunga/w91010:${{ env.SHA }}"' javascript/manifest/dev/pingw91010.yaml
+     - name: 'Deploy Dev'
+       run: |
+        pwd 
+        ls -la
+        kubectl apply -f javascript/manifest/dev/pingconfig.yaml
+        kubectl apply -f javascript/manifest/dev/pingsecret.yaml
+        kubectl apply -f javascript/manifest/dev/pingw91010.yaml
+        kubectl apply -f javascript/manifest/dev/pingw91010-svc.yaml
